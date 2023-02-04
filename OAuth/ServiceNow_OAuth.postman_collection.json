@@ -1,0 +1,228 @@
+{
+	"info": {
+		"_postman_id": "4be1b240-d6b3-4894-ac1c-a15f5d022041",
+		"name": "ServiceNow_OAuth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20097023"
+	},
+	"item": [
+		{
+			"name": "CreateIncident",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"//Save response into a local variable\r",
+							"var res = pm.response.json();\r",
+							"\r",
+							"//Save sys_id into a local variable \r",
+							"var systemID = res.result.sys_id;\r",
+							"\r",
+							"//Set the sys_id into the global variable\r",
+							"pm.globals.set(\"sys_id_1\",systemID);\r",
+							"\r",
+							"//Print the System ID in the console\r",
+							"console.log(systemID);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"short_description\": \"My First Incident Request\",\r\n    \"description\": \"My First Incident Request created in Service Now via Postman\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURI}}/api/now/table/{{incident_path}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"{{incident_path}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateIncident",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"short description\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"My First Incident Request - PM\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"description\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"My First Incident Request in Service Now via PM\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"short_description\":\"My First Incident Request - PM\",\r\n    \"description\":\"My First Incident Request in Service Now via PM\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURI}}/api/now/table/{{incident_path}}/{{sys_id_1}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"{{incident_path}}",
+						"{{sys_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteIncident",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURI}}/api/now/table/{{incident_path}}/{{sys_id_1}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"{{incident_path}}",
+						"{{sys_id_1}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "accessTokenUrl",
+				"value": "https://dev107650.service-now.com/oauth_token.do",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "https://dev107650.service-now.com/oauth_auth.do",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "https://www.getpostman.com/oauth2/callback",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "RestAPI_Jan2025",
+				"type": "string"
+			},
+			{
+				"key": "state",
+				"value": "test",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "&gpO]ntOho",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "930f27e547302110dcc34f10413433a9",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "incident_path",
+			"value": "incident",
+			"type": "string"
+		}
+	]
+}
