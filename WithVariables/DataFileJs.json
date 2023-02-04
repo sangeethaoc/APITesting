@@ -1,0 +1,25 @@
+[
+
+{
+    "short_desc": "My first incident created via Postman",
+    "desc": "Created first incident with postman"
+},
+
+{
+    "short_desc": "My Second incident created via Postman",
+    "desc": "Created second incident with postman"
+},
+
+{
+   "short_desc_cr":"Add network switch to cabinet 1",
+   "contact_type":"Phone",
+   "company":"HPE"
+},
+
+{
+   "short_desc_cr":"Add network switch to cabinet 2",
+   "contact_type":"Email",
+   "company":"Cisco"
+}
+
+]

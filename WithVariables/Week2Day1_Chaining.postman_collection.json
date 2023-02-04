@@ -1,0 +1,339 @@
+{
+	"info": {
+		"_postman_id": "7596141e-550b-442b-92df-45f019823128",
+		"name": "Week2Day1_Chaining",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20097023"
+	},
+	"item": [
+		{
+			"name": "CreateIncident",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"//Save response into a local variable\r",
+							"var res = pm.response.json();\r",
+							"\r",
+							"//Save sys_id into a local variable \r",
+							"var systemID = res.result.sys_id;\r",
+							"\r",
+							"//Set the sys_id into the global variable\r",
+							"pm.globals.set(\"sys_id_1\",systemID);\r",
+							"\r",
+							"//Print the System ID in the console\r",
+							"console.log(systemID);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"short_description\": \"{{Short_desc}}\",\r\n    \"description\": \"{{Desc}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURI}}/api/now/table/{{incident_path}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"{{incident_path}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateIncident",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"short description\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"My First Incident Request - PM\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"description\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"My First Incident Request in Service Now via PM\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"short_description\":\"My First Incident Request - PM\",\r\n    \"description\":\"My First Incident Request in Service Now via PM\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURI}}/api/now/table/{{incident_path}}/{{sys_id_1}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"{{incident_path}}",
+						"{{sys_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteIncident",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURI}}/api/now/table/{{incident_path}}/{{sys_id_1}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"{{incident_path}}",
+						"{{sys_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateChangeRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"}); \r",
+							"\r",
+							"//Save response into a local variable\r",
+							"var res = pm.response.json();\r",
+							"\r",
+							"//Save sys_id into a local variable \r",
+							"var systemID = res.result.sys_id;\r",
+							"\r",
+							"//Set the sys_id into the global variable\r",
+							"pm.globals.set(\"sys_id_2\",systemID);\r",
+							"\r",
+							"//Print the System ID in the console\r",
+							"console.log(systemID);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"short_description\": \"{{short_desc_cr}}\",\r\n    \"contact_type\": \"{{contact_type}}\",\r\n    \"company\": \"{{company}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURI}}/api/now/table/{{change_request_path}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"{{change_request_path}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateChangeRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"short description\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Add network switch to cabinet - PM\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"contact type\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"email\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"company\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"HPEE\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"short_description\":\"Add network switch to cabinet - PM\",\"contact_type\":\"Email\",\"company\":\"HPEE\"}  ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURI}}/api/now/table/{{change_request_path}}/{{sys_id_2}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"{{change_request_path}}",
+						"{{sys_id_2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteChangeRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURI}}/api/now/table/{{change_request_path}}/{{sys_id_2}}",
+					"host": [
+						"{{baseURI}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"{{change_request_path}}",
+						"{{sys_id_2}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "Sangee@2503",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "incident_path",
+			"value": "incident",
+			"type": "string"
+		},
+		{
+			"key": "change_request_path",
+			"value": "change_request",
+			"type": "string"
+		}
+	]
+}

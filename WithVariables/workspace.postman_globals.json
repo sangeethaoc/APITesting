@@ -1,0 +1,21 @@
+{
+	"id": "7b2949a8-0e38-4b30-8abb-4cea7a6d4ee0",
+	"values": [
+		{
+			"key": "sys_id_1",
+			"value": "3df2bbc897702110bdcf3756f053aff5",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "sys_id_2",
+			"value": "3413bbc897702110bdcf3756f053aff9",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2023-02-01T06:47:50.831Z",
+	"_postman_exported_using": "Postman/10.8.7"
+}
